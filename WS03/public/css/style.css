@@ -968,7 +968,7 @@ video {
 }
 
 .showcase {
-  background-image: url('../images/showcase.jpg');
+  background-image: url('../public/images/showcase.jpg');
 }
 
 .hover\:bg-blue-600:hover {
