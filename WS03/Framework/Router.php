@@ -131,6 +131,7 @@ class Router
                     return;
                 }
             }
+            //ErrorController::notFound();
         }
         ErrorController::notFound();
     }

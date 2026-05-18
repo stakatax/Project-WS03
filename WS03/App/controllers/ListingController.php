@@ -3,6 +3,7 @@
 namespace App\controllers;
 
 use Framework\Database;
+use Framework\Validation;
 
 class ListingController
 {
@@ -17,6 +18,7 @@ class ListingController
 
     public function index()
     {
+
 
         $listings = $this->db->query('SELECT * FROM listings')->fetchAll();
 
@@ -52,5 +54,56 @@ class ListingController
         loadView('listings/show', [
             'listing' => $listing
         ]);
+    }
+
+    /**
+     * store data in database
+     *
+     * 
+     * @return void
+     */
+
+    public function store()
+    {
+        $allowfields = [
+            'title',
+            'description',
+            'salary',
+            'tags',
+            'company',
+            'address',
+            'city',
+            'state',
+            'email',
+            'requirements',
+            'benefits'
+        ];
+
+        $newListingData = array_intersect_key($_POST, array_flip($allowfields));
+
+        $newListingData['user_id'] = 1; // hardcoded user id for now
+
+        $newListingData = array_map('sanitize', $newListingData);
+
+        $requiredFields = ['title', 'description', 'email', 'city', 'state'];
+
+        $errors = [];
+
+        foreach ($requiredFields as $fields) {
+            if (empty($newListingData[$fields]) || !Validation::string($newListingData[$fields])) {
+                $errors[$fields] = ucfirst($fields) . ' is required';
+            }
+        }
+
+        if (!empty($errors)) {
+            //reload view with error
+            loadView('listings/create', [
+                'errors' => $errors,
+                'listing' => $newListingData
+            ]);
+        } else {
+            //Submit data
+            echo "Success";
+        }
     }
 }
