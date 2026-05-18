@@ -1,0 +1,18 @@
+{
+
+    "name": "stakatax/project-ws03",
+    "description": "Job seeker application",
+    "authors": [
+        {
+            "name": "Jan Sapin",
+            "email": "janfortun1@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Framework\\": "Framework",
+            "App\\": "App/"
+        }
+    }
+
+}
