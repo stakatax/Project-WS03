@@ -3,6 +3,7 @@
 namespace Framework;
 
 use App\controllers\ErrorController;
+use Error;
 
 class Router
 {
@@ -81,26 +82,56 @@ class Router
     /**
      * Route the request
      * @param string $uri
-     * @param string $method
+     * @param string /$method
      * return void
      */
 
-    public function route($uri, $method)
+    public function route($uri)
     {
+        $requestMethod = $_SERVER['REQUEST_METHOD'];
+
         foreach ($this->routes as $route) {
-            if ($route['uri'] === $uri && $route['method'] === $method) {
-                //Extract controller and method
-                $controller = 'App\\Controllers\\' . $route['controller'];
+            //Split the current URI into segment
+            $uriSegments = explode('/', trim($uri, '/'));
 
-                $controllerMethod = $route['controllerMethod'];
+            //Split the route
+            $routeSegments = explode('/', trim($route['uri'], '/'));
 
-                //Instantiate the controller class
-                $controllerInstance = new $controller();
-                $controllerInstance->$controllerMethod();
-                return;
+            $match = true;
+
+            if (count($uriSegments) === count($routeSegments) && strtoupper($route['method']) === strtoupper($requestMethod)) {
+                $params = [];
+
+                $match = true;
+
+                for ($i = 0; $i < count($uriSegments); $i++) {
+                    // if the uri do not match and there is no value between the {id}
+                    if (
+                        $routeSegments[$i] !== $uriSegments[$i] &&
+                        !preg_match('/\{(.+?)\}/', $routeSegments[$i])
+                    ) {
+                        $match = false;
+                        break;
+                    }
+
+
+                    //check for param and add to $param array
+                    if (preg_match('/\{(.+?)\}/', $routeSegments[$i], $matches)) {
+                        $params[$matches[1]] = $uriSegments[$i];
+                    }
+                }
+
+                if ($match) {
+                    $controller = 'App\\controllers\\' . $route['controller'];
+                    $controllerMethod = $route['controllerMethod'];
+
+                    //instantiate the controller class
+                    $controllerInstance = new $controller();
+                    $controllerInstance->$controllerMethod($params);
+                    return;
+                }
             }
         }
-
         ErrorController::notFound();
     }
 }
