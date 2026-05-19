@@ -5,12 +5,14 @@ namespace App\controllers;
 use Framework\Database;
 use Framework\Validation;
 use Framework\Session;
+use Framework\Authorization;
 
 
 class ListingController
 {
 
     protected $db;
+
     public function __construct()
     {
         $config = require basePath('config/db.php');
@@ -129,6 +131,8 @@ class ListingController
             $query = "INSERT INTO listings ({$fields}) VALUES ({$values})";
             $this->db->query($query, $newListingData);
 
+            Session::setFlashMessage('success_message', 'Listing created successfully');
+
             redirect('/listings');
         }
     }
@@ -153,10 +157,9 @@ class ListingController
             return;
         }
 
-        //authorization
-        if (Session::get('user')['id'] !== $listing->user_id) {
-            $_SESSION['error_message'] = 'You are not authorized to delete this listing';
-            return redirect('/listings');
+        if (!Authorization::isOwner($listing->user_id)) {
+            Session::setFlashMessage('error_message', 'You are not authorized to delete this listing');
+            redirect('/listings/' . $listing->id);
         }
 
 
@@ -166,7 +169,7 @@ class ListingController
 
 
         //set flash message
-        $_SESSION['success_message'] = 'Listing deleted successfully';
+        Session::setFlashMessage('success_message', 'Listing deleted successfully');
 
 
         redirect('/listings');
@@ -262,7 +265,7 @@ class ListingController
             $updateValues['id'] = $id;
             $this->db->query($updateQuery, $updateValues);
 
-            $_SESSION['success_message'] = 'Listing updated successfully';
+            Session::setFlashMessage('success_message', 'Listing updated successfully');
 
             redirect('/listings/' . $id);
         }
