@@ -114,10 +114,10 @@ class UserController
         VALUES (:name, :email, :city, :state, :password)', $params);
 
         //get new user id
-        $user_id = $this->db->conn->lastInsertId();
+        $userid = $this->db->conn->lastInsertId();
 
         Session::set('user', [
-            'id' => $user_id,
+            'id' => $userid,
             'name' => $name,
             'email' => $email,
             'city' => $city,
