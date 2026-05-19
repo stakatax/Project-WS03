@@ -87,4 +87,5 @@ function sanitize($dirty)
 function redirect($url)
 {
     header("Location: {$url}");
+    exit;
 }
