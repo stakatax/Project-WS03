@@ -12,8 +12,7 @@
    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 */
 
-@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Oswald:wght@200..700&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap');
 
 /* ----------------------------------------------------------------
    SECTION 1: MGA KULAY (Colors)
@@ -24,20 +23,18 @@
    ---------------------------------------------------------------- */
 
 :root {
-  --color-header:       #0F172A;   /* Navy blue */
-  --color-accent:       #253453;   /* Corporate blue */
-  --color-page-bg:      #F1F5F9;   /* Light gray-blue background */
-  --color-card-bg:      #FFFFFF;   /* Clean white cards */
-  --color-heading:      #2c3a47;   /* Light heading text */
-  --color-card-heading: #1E293B;   /* Dark slate heading */
-  --color-body-text:    #475569;   /* Professional muted text */
-  --color-link:         #3B82F6;   /* Bright clickable blue */
-  --color-tag-bg:       #DBEAFE;   /* Soft blue tags */
-  --color-tag-text:     #1D4ED8;   /* Deep blue tag text */
-  --color-footer:       #020617;   /* Deep dark footer */
-  --showcase-overlay:   rgba(97, 97, 97, 0.5); /* Hero banner overlay
-                                               0.0 = transparent
-                                               0.9 = halos itim */
+  --color-header:       #1E1245;   /* Deep corporate purple */
+  --color-accent:       #2E1065;   /* Rich dark violet */
+  --color-page-bg:      #F5F3FF;   /* Soft lavender tint */
+  --color-card-bg:      #FFFFFF;   /* Clean white */
+  --color-heading:      #1E1B4B;   /* Dark indigo heading */
+  --color-card-heading: #312E81;   /* Bold indigo */
+  --color-body-text:    #6B7280;   /* Neutral gray */
+  --color-link:         #6366F1;   /* Bright indigo CTA */
+  --color-tag-bg:       #EDE9FE;   /* Light violet tag bg */
+  --color-tag-text:     #4338CA;   /* Deep indigo tag text */
+  --color-footer:       #0F0A1E;   /* Near-black purple footer */
+  --showcase-overlay:   rgba(99, 102, 241, 0.35); /* Indigo tint */
 }
 
 
@@ -56,8 +53,11 @@
    ---------------------------------------------------------------- */
 
 :root {
-  --font-heading: 'Bodoni Moda', serif;      /* Para sa mga title at heading */
-  --font-body:    'Oswald', sans-serif;   /* Para sa regular na text */
+  --font-heading: 'Manrope', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+
+  --font-heading-weight: 800;
+  --font-body-weight: 400;
 }
 
 
@@ -94,24 +94,29 @@ body {
   font-family: var(--font-body) !important;
   background-color: var(--color-page-bg) !important;
   color: var(--color-body-text) !important;
+  font-weight: var(--font-body-weight) !important;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading) !important;
   color: var(--color-heading) !important;
+  font-weight: var(--font-heading-weight) !important;
 }
 
 .card-heading {
   font-family: var(--font-heading) !important;
   color: var(--color-card-heading) !important;
+  font-weight: var(--font-heading-weight) !important;
 }
 
 a {
   color: var(--color-link) !important;
+  font-weight: var(--font-body-weight) !important;
 }
 
 header {
   background-color: var(--color-header) !important;
+  font-weight: var(--font-heading-weight) !important;
 }
 
 .bg-blue-900,
