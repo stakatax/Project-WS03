@@ -4,13 +4,14 @@
 
 <section class="container mx-auto p-4 mt-4">
   <div class="rounded-lg shadow-md bg-white p-3">
+    <?= loadPartials('message'); ?>
     <div class="flex justify-between items-center">
       <a class="block p-4 text-blue-700" href="/listings">
         <i class="fa fa-arrow-alt-circle-left"></i>
         Back To Listings
       </a>
       <div class="flex space-x-4 ml-4">
-        <a href="/edit" class="inline-flex items-center px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded">Edit</a>
+        <a href="/listings/edit/<?= $listing->id ?>" class="inline-flex items-center px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded">Edit</a>
         <!-- Delete Form -->
         <form method="POST">
           <input type="hidden" name="_method" value="DELETE">
